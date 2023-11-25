@@ -1,5 +1,5 @@
-### git clone
+### 1.git clone
 
-### npm install
+### 2.npm install
 
-### npm run dev
+### 3.npm run dev
