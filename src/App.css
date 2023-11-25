@@ -3,39 +3,36 @@
 }
 
 .App-logo {
-  height: 20vmin;
+  height: 10vmin;
   pointer-events: painted;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #f5cca0;
+
   justify-content: flex-start;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-size: 10px;
+  color: black;
 }
 
-.game {
-  margin-top: 75px;
+.game-game {
+  margin-top: 25px;
 }
 
 .square {
-  background: #fff;
+  background: #6b240c;
   border: 1px solid #999;
   border-radius: 5px;
   float: left;
-  font-size: 100px;
+  font-size: 50px;
   font-weight: bolder;
   line-height: 34px;
-  height: 100px;
+  height: 75px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 100px;
+  width: 75px;
 }
 
 .board-row:after {
@@ -45,11 +42,33 @@
 }
 
 p {
-  font-size: 50px;
+  font-size: 25px;
 }
 
 .status {
-  margin-top: 50px;
-  font-size: 50px;
+  margin-top: 20px;
+  font-size: 30px;
   font-weight: bold;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5cca0;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.game-info {
+  list-style-type: none;
+}
+
+.btn {
+  background-color: #6b240c;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  margin: 5px;
+  font-size: 10px;
 }

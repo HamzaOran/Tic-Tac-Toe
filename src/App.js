@@ -10,10 +10,7 @@ function Square({ value, onSquareClick }) {
   );
 }
 
-export default function App() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
-
+function App({ xIsNext, squares, onPlay }) {
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
       return;
@@ -25,22 +22,21 @@ export default function App() {
       nextSquares[i] = 'O';
     }
 
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
+    onPlay(nextSquares);
   }
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
     status = '*Winner* :  ' + winner;
   } else {
-    status = 'Next player:' + (xIsNext ? 'X' : 'O');
+    status = 'Next player : ' + (xIsNext ? 'X' : 'O');
   }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>Let's Play a Game!</p>
-        <div className="game">
+        <div className="game-game">
           <div className="board-row">
             <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
             <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -57,8 +53,52 @@ export default function App() {
             <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
           </div>
         </div>
-        <div className="status">{status}</div>
+        <div className="status">
+          <div className="status-winner">{status}</div>
+        </div>
       </header>
+    </div>
+  );
+}
+
+export default function Game() {
+  const [history, setHistory] = useState([Array(9).fill(null)]);
+  const [currentMove, setCurrentMove] = useState(0);
+  const xIsNext = currentMove % 2 === 0;
+  const currentSquares = history[currentMove];
+
+  function handlePlay(nextSquares) {
+    const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
+    setHistory(nextHistory);
+    setCurrentMove(nextHistory.length - 1);
+  }
+  function jumpTo(nextMove) {
+    setCurrentMove(nextMove);
+  }
+
+  const moves = history.map((squares, move) => {
+    let description;
+    if (move > 0) {
+      description = 'Move #' + move;
+    } else {
+      description = 'Game start';
+    }
+    return (
+      <li key={move} className="game-info">
+        <button className="btn" onClick={() => jumpTo(move)}>
+          {description}
+        </button>
+      </li>
+    );
+  });
+  return (
+    <div className="game">
+      <div className="game-board">
+        <App xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+      </div>
+      <div>
+        <ol>{moves}</ol>
+      </div>
     </div>
   );
 }
